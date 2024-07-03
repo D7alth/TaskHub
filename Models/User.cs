@@ -14,7 +14,7 @@ public class User
     [BsonElement("_id")]
     [Key]
     [BsonRepresentation(BsonType.String)]
-    public Guid UserId { get; set; }
+    public Guid UserId { get; set; } = new Guid();
     [Required (ErrorMessage = "User Name is required")]
     public string? Name { get; set; }
     [Required (ErrorMessage = "Email is required")]
