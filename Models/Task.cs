@@ -10,7 +10,7 @@ public class Task
     [BsonId]
     [BsonElement("_id")]
     [BsonRepresentation(BsonType.String)]
-    public Guid TaskId { get; set; }
+    public Guid TaskId { get; } = Guid.NewGuid();
     [Required (ErrorMessage = "Title is required")] 
     public string? Title { get; set; }
     [Required (ErrorMessage = "Task description is required")]
@@ -30,7 +30,7 @@ public class Category
 
 public enum Priority
 {
-    Low,
-    Medium,
-    High
+    Low = 0,
+    Medium = 1,
+    High = 2
 }
