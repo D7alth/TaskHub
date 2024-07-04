@@ -40,20 +40,7 @@ public class TasksController(ILogger<TasksController> logger, ITaskRepository<Ta
             return Problem("An error occurred while processing your request", statusCode: 500);
         }
     }
-    [HttpGet("category/{categoryName}", Name = "GetByCategory")]
-    public async Task<IActionResult> GetByCategory(string categoryName)
-    {
-        try
-        {
-            var tasks = await _taskRepository.GetByCategory(categoryName);
-            return Ok(tasks);
-        }
-        catch (Exception e)
-        {
-            _logger.LogError(e, "An error occurred while processing GetByCategory request");
-            return Problem("An error occurred while processing your request", statusCode: 500);
-        }
-    }
+ 
     [HttpPost(Name = "AddTask")]
     public async Task<IActionResult> AddTask(Task task)
     {

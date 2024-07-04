@@ -30,13 +30,7 @@ public class TaskRepository(IMongoCollection<Task> tasks) : ITaskRepository<Task
 
     async Task<List<Task>> ITaskRepository<Task>.GetAll()
     {
-        var x =  await tasks.Find(t => true).ToListAsync();
+        var x = await tasks.Find(t => true).ToListAsync();
         return x;
-    }
-
-    public async Task<List<Task>> GetByCategory(string categoryName)
-    {
-        var filter = Builders<Task>.Filter.ElemMatch(t => t.Categories, ct => ct.Name == categoryName);
-        return await tasks.Find(filter).ToListAsync();
     }
 }

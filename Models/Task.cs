@@ -10,27 +10,14 @@ public class Task
     [BsonId]
     [BsonElement("_id")]
     [BsonRepresentation(BsonType.String)]
-    public Guid TaskId { get; } = Guid.NewGuid();
+    public Guid TaskId { get; private set; } = new();
     [Required (ErrorMessage = "Title is required")] 
+    [MaxLength(50)]
     public string? Title { get; set; }
     [Required (ErrorMessage = "Task description is required")]
+    [MaxLength(255)]
     public string? Description { get; set; }
     public bool IsCompleted { get; set; } = false;
-    [Required (ErrorMessage = "The task must have a category")] 
-    public List<Category> Categories { get; set; } = [];
-}
-
-public class Category
-{
-    [NotMapped]
-    public string? Name {get; set; }
-    [NotMapped]
-    public Priority Priority { get; set; } = Priority.Low;
-}
-
-public enum Priority
-{
-    Low = 0,
-    Medium = 1,
-    High = 2
+    [ForeignKey(nameof(User.UserId))]
+    public List<Guid> UserId { get; set; } = [];
 }
