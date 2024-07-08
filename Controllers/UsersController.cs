@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using TaskHub.Models;
+using TaskHub.Models.DTOs;
 using TaskHub.Models.Repository;
 
 namespace TaskHub.Controllers;
@@ -28,10 +29,16 @@ public class UsersController(ILogger<TasksController> logger, IUserRepository<Us
     }
 
     [HttpPost(Name = "AddUser")]
-    public async Task<IActionResult> AddUser(User user)
+    public async Task<IActionResult> AddUser(CreateUserDto userDto)
     {
         try
         {
+            var user = new User()
+            {
+                Name = userDto.Name,
+                Email = userDto.Email,
+                Password = userDto.Password
+            }; 
             var newUser = await _userRepository.AddUser(user);
             return CreatedAtRoute("GetUser", new { userId = newUser.UserId }, newUser);
         }
